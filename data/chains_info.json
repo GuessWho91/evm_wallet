@@ -1,0 +1,90 @@
+{
+  "ethereum": {
+    "rpc": [
+      "https://rpc.ankr.com/eth"
+    ],
+    "explorer": "https://etherscan.io/tx/",
+    "api": "https://api.etherscan.io/",
+    "token": "ETH"
+  },
+  "optimism": {
+    "rpc": [
+      "https://optimism.drpc.org"
+    ],
+    "explorer": "https://optimistic.etherscan.io/tx/",
+    "api": "https://api.optimistic.etherscan.io/",
+    "token": "ETH"
+  },
+  "bsc": {
+    "rpc": [
+      "https://bsc-dataseed.binance.org"
+    ],
+    "explorer": "https://bscscan.com/tx/",
+    "api": "https://api.bscscan.com/",
+    "token": "BNB"
+  },
+  "polygon": {
+    "rpc": [
+      "https://polygon-rpc.com"
+    ],
+    "explorer": "https://polygonscan.com/tx/",
+    "api": "https://api.polygonscan.com/",
+    "token": "MATIC"
+  },
+  "arbitrum": {
+    "rpc": [
+      "https://1rpc.io/arb"
+    ],
+    "explorer": "https://arbiscan.io/tx/",
+    "api": "https://api.arbiscan.io/",
+    "token": "ETH"
+  },
+  "zksync": {
+    "rpc": [
+      "https://mainnet.era.zksync.io"
+    ],
+    "explorer": "https://explorer.zksync.io/tx/",
+    "api": "https://api.explorer.zksync.io/",
+    "token": "ETH"
+  },
+  "avalanche": {
+    "rpc": [
+      "https://rpc.ankr.com/avalanche"
+    ],
+    "explorer": "https://avascan.info/blockchain/dfk/tx/",
+    "api": "https://api.avascan.info/",
+    "token": "AVAX"
+  },
+  "linea": {
+    "rpc": [
+      "https://1rpc.io/linea"
+    ],
+    "explorer": "https://lineascan.build/tx/",
+    "api": "https://api.lineascan.build/",
+    "token": "ETH"
+  },
+  "base": {
+    "rpc": [
+      "https://base.drpc.org"
+    ],
+    "explorer": "https://basescan.org/tx/",
+    "api": "https://api.basescan.org/",
+    "token": "ETH"
+  },
+  "opbnb": {
+    "rpc": [
+      "https://opBNB-mainnet-rpc.bnbchain.org"
+    ],
+    "explorer": "http://mainnet.opBNBscan.com/tx/",
+    "api": "https://api.mainnet.opBNBscan.com/",
+    "token": "BNB"
+  },
+  "fantom": {
+        "rpc": [
+      "https://rpc.ankr.com/fantom/"
+    ],
+    "explorer": "https://ftmscan.com/tx/",
+    "api": "https://api.ftmscan.com/",
+    "token": "FTM"
+  }
+}
