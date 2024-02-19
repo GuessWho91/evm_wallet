@@ -7,5 +7,5 @@ setup(
    author='GuessWho',
    author_email='eu1qjqaw8dda@mail.ru',
    packages=['evm_wallet'],
-   install_requires=['wheel', 'bar', 'greek']
+   install_requires=[]
 )
