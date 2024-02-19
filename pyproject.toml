@@ -1,6 +1,6 @@
 [build-system]
-requires = []
-build-backend = ""
+#requires = []
+#build-backend = ""
 
 [project]
 name = "evm_wallet"
