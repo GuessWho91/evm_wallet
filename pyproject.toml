@@ -3,7 +3,7 @@ requires = ["setuptools>=40.8.0"]
 build-backend = "setuptools.build_meta:__legacy__"
 
 [project]
-name = "evm_wallet"
+name = "evm-wallet"
 version = "0.1.0"
 dependencies = [
   "web3",
