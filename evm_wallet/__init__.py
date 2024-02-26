@@ -1,7 +1,6 @@
-# from w3wallet.abi_loader import (AbiLoader)
-from chains import (Chains)
-from coins import (Coin)
-from w3wallet import (Wallet)
-from logger import (W3Logger)
-from w3error import (W3Error)
-from w3transactor import (W3Transactor)
+from evm_wallet.chains import Chains
+from evm_wallet.coins import (Coin)
+from evm_wallet.w3wallet import (Wallet)
+from evm_wallet.logger import (W3Logger)
+from evm_wallet.w3error import (W3Error)
+from evm_wallet.w3transactor import (W3Transactor)
