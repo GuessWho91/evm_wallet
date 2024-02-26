@@ -16,11 +16,12 @@ class Chains(Enum):
     ARBITRUM = 42161
     AVALANCHE = 43114
     LINEA = 59144
+    BERA_TEST = 80085
 
     def __init__(self, name):
 
         script_location = Path(__file__).absolute().parent
-        info = open(f'{script_location}/../data/chains_info.json')
+        info = open(f'{script_location}/data/chains_info.json')
         chains_data = json.load(info)
 
         self.chain_data = chains_data[self.name.lower()]
@@ -39,10 +40,10 @@ class Chains(Enum):
         token_name = self.chain_data["token"]
 
         if token_name == "BNB":
-            return 0.0005
+            return 0.0007
         elif token_name == "MATIC":
             return 0.1
-        elif token_name == "AVAX":
+        elif token_name == "AVAX" or token_name == "BERA":
             return 0.005
         elif token_name == "ETH":
             return 0.0001
@@ -51,7 +52,7 @@ class Chains(Enum):
 
     def get_main_coin(self):
 
-        from coins import BNB, MATIC, ETH, AVAX, FTM
+        from evm_wallet.coins import BNB, MATIC, ETH, AVAX, FTM, BERA
 
         token_name = self.chain_data["token"]
 
@@ -65,3 +66,5 @@ class Chains(Enum):
             return FTM(self)
         elif token_name == "ETH":
             return ETH(self)
+        elif token_name == "BERA":
+            return BERA(self)

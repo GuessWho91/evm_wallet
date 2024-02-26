@@ -133,3 +133,6 @@ class FTM(Coin):
 
 class MATIC(Coin):
     pass
+
+class BERA(Coin):
+    pass

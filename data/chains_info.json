@@ -17,7 +17,7 @@
   },
   "bsc": {
     "rpc": [
-      "https://bsc-dataseed.binance.org"
+      "https://rpc.ankr.com/bsc"
     ],
     "explorer": "https://bscscan.com/tx/",
     "api": "https://api.bscscan.com/",
@@ -86,5 +86,13 @@
     "explorer": "https://ftmscan.com/tx/",
     "api": "https://api.ftmscan.com/",
     "token": "FTM"
+  },
+  "bera_test": {
+    "rpc": [
+      "https://artio.rpc.berachain.com"
+    ],
+    "explorer": "https://testnet.beratrail.io/",
+    "api": "https://api.testnet.beratrail.io/",
+    "token": "BERA"
   }
 }
