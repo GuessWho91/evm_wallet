@@ -5,10 +5,10 @@ from eth_account.messages import encode_defunct
 from web3 import Web3
 from web3.exceptions import TransactionNotFound
 
-from coins import erc20_abi
-from logger import W3Logger
-from chains import Chains
-from w3error import W3Error
+from evm_wallet.coins import erc20_abi
+from evm_wallet.logger import W3Logger
+from evm_wallet.chains import Chains
+from evm_wallet.w3error import W3Error
 
 
 class Wallet:

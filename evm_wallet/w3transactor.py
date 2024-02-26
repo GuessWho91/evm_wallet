@@ -1,7 +1,7 @@
-from chains import Chains
-from coins import Coin
-from w3wallet import Wallet
-from w3error import W3Error
+from evm_wallet.chains import Chains
+from evm_wallet.coins import Coin
+from evm_wallet.w3wallet import Wallet
+from evm_wallet.w3error import W3Error
 
 from abc import ABC
 

@@ -1,5 +1,5 @@
-from logger import W3Logger
-from w3error import W3Error
+from evm_wallet.logger import W3Logger
+from evm_wallet.w3error import W3Error
 import time
 import random
 

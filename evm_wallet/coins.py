@@ -1,5 +1,5 @@
-from w3utils import sleep
-from chains import Chains
+from evm_wallet.w3utils import sleep
+from evm_wallet.chains import Chains
 
 from pathlib import Path
 
