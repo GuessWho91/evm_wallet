@@ -46,7 +46,7 @@ class Wallet:
         return {"balance_wei": balance_wei, "balance": balance, "symbol": symbol, "decimal": decimal}
 
     def get_amount_wei(self, token: str, amount):
-        if token == self.chain.get_main_coin().get_address():
+        if token.lower() == self.chain.get_main_coin().get_address().lower():
             token_balance = self.get_balance()
         else:
             token_balance = self.get_token_balance(token)
@@ -94,7 +94,10 @@ class Wallet:
         gas = int(self.web3.eth.estimate_gas(tx_data) * self.GAS_MULTIPLIER)
         tx_data.update({"gas": gas})
 
-        tx_hex = self.sigh_transaction(tx_data)
+        try:
+            tx_hex = self.sigh_transaction(tx_data)
+        except ValueError as e:
+            tx_data.update({"nonce": tx_data.get("nonce") + 1})
 
         self.logger.success(
             f"[{tag}] [{self.address}] Транзакция отправлена {self.chain.get_scan_url()}{tx_hex}")
