@@ -2,8 +2,30 @@ from evm_wallet.logger import W3Logger
 from evm_wallet.w3error import W3Error
 import time
 import random
+import asyncio
 
-RETRY_COUNT = 2
+RETRY_COUNT = 3
+DELAY_TIME = 2
+
+
+def async_retry(async_func):
+    async def wrapper(*args, **kwargs):
+        tries, delay = RETRY_COUNT, DELAY_TIME
+        while tries > 0:
+            try:
+                return await async_func(*args, **kwargs)
+            except Exception as e:
+                W3Logger().error(f"Error | {e}")
+                tries -= 1
+                if tries <= 0:
+                    raise
+                await asyncio.sleep(delay)
+
+                delay *= 2
+                delay += random.uniform(0, 1)
+                delay = min(delay, 10)
+
+    return wrapper
 
 
 def retry(func):

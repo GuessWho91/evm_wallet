@@ -91,7 +91,7 @@
     "rpc": [
       "https://artio.rpc.berachain.com"
     ],
-    "explorer": "https://testnet.beratrail.io/",
+    "explorer": "https://testnet.beratrail.io/tx/",
     "api": "https://api.testnet.beratrail.io/",
     "token": "BERA"
   }

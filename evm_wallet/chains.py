@@ -21,7 +21,7 @@ class Chains(Enum):
     def __init__(self, name):
 
         script_location = Path(__file__).absolute().parent
-        info = open(f'{script_location}/data/chains_info.json')
+        info = open(f'{script_location}/../data/chains_info.json')
         chains_data = json.load(info)
 
         self.chain_data = chains_data[self.name.lower()]

@@ -54,8 +54,7 @@ class Wallet:
         amount_wei = int(amount * 10 ** token_balance["decimal"])
 
         if token_balance["balance_wei"] < amount_wei:
-            raise W3Error(f"Balance on wallet {self.address} of {token_balance['symbol']} "
-                          f"in {self.chain} is too low")
+            raise W3Error(f"[Wallet][{self.address}] balance of {token_balance['symbol']} in {self.chain} is too low")
 
         return amount_wei
 
@@ -98,6 +97,7 @@ class Wallet:
             tx_hex = self.sigh_transaction(tx_data)
         except ValueError as e:
             tx_data.update({"nonce": tx_data.get("nonce") + 1})
+            tx_hex = self.sigh_transaction(tx_data)
 
         self.logger.success(
             f"[{tag}] [{self.address}] Транзакция отправлена {self.chain.get_scan_url()}{tx_hex}")
@@ -109,7 +109,7 @@ class Wallet:
         try:
             gas = int(self.web3.eth.estimate_gas(txn) * self.GAS_MULTIPLIER)  # 250000
             txn.update({"gas": gas})
-        except Exception as e:  # Газ уже назначен
+        except:  # Газ уже назначен
             time.sleep(1)
 
         signed_txn = self.web3.eth.account.sign_transaction(txn, private_key=self.private_key)
@@ -129,22 +129,22 @@ class Wallet:
         contract = self.web3.eth.contract(address=self.web3.to_checksum_address(contract_address), abi=abi)
         return contract.functions.balanceOf(address).call()
 
-    async def wait_until_tx_finished(self, hash_str: str, max_wait_time=180) -> None:
+    async def wait_until_tx_finished(self, hash_str, max_wait_time=180) -> None:
         start_time = time.time()
         while True:
             try:
                 receipts = await self.web3.eth.get_transaction_receipt(hash_str)
                 status = receipts.get("status")
                 if status == 1:
-                    self.logger.success(f"[{self.address}] {hash} successfully!")
+                    self.logger.success(f"[Wallet][{self.address}] {hash} successfully!")
                     return
                 elif status is None:
                     await asyncio.sleep(0.3)
                 else:
-                    self.logger.error(f"[{self.address}] {hash} transaction failed!")
+                    self.logger.error(f"[Wallet][{self.address}] {hash} transaction failed!")
                     return
             except TransactionNotFound:
                 if time.time() - start_time > max_wait_time:
-                    self.logger.error(f'FAILED TX: {hash}')
+                    self.logger.error(f'[Wallet][{self.address}] failed tx: {hash}')
                     return
                 await asyncio.sleep(1)

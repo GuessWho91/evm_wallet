@@ -15,7 +15,8 @@ class W3Transactor(ABC):
         balance = self.wallet.get_balance()
 
         if balance["balance"] < self.chain.get_min_gas():
-            raise W3Error(f"Not enough gas on wallet {self.wallet.address} in {self.chain}")
+            raise W3Error(f"[W3Transactor][{self.wallet.address}] "
+                          f"not enough gas on wallet {self.wallet.address} in {self.chain}")
 
     def approve_token_if_need(self, token: Coin, amount_wei, contract_address):
         if not token.get_address() == self.chain.get_main_coin().get_address():

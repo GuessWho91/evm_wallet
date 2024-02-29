@@ -22,7 +22,7 @@ class Coin:
         self.chain = chain
 
         script_location = Path(__file__).absolute().parent
-        info = open(f'{script_location}/data/coins_info.json')
+        info = open(f'{script_location}/../data/coins_info.json')
         coins_data = json.load(info)
         self.coin_data = coins_data[self.__class__.__name__]
         if self.coin_data is None:
@@ -68,7 +68,7 @@ class Coin:
         tx = function.build_transaction({
             'from': wallet.address,
             "value": 0,
-            'gasPrice': wallet.web3.eth.gas_price,
+            'gasPrice': 50000000000,
             'nonce': wallet.web3.eth.get_transaction_count(wallet.address),
         })
 
@@ -80,7 +80,7 @@ class Coin:
         )
         raw_transaction = wallet.web3.eth.send_raw_transaction(signed_txn.rawTransaction)
 
-        wallet.web3.eth.wait_for_transaction_receipt(raw_transaction, timeout=6000)
+        wallet.web3.eth.wait_for_transaction_receipt(raw_transaction, timeout=6)
 
         sleep(1, 3)
 
