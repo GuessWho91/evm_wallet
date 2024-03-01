@@ -52,3 +52,10 @@ def sleep(sleep_from: int, sleep_to: int):
     W3Logger().info(f"💤 Sleep {delay} s.")
     for _ in range(delay):
         time.sleep(1)
+
+async def async_sleep(sleep_from: int, sleep_to: int):
+    delay = random.randint(sleep_from, sleep_to)
+
+    W3Logger().info(f"💤 Sleep {delay} s.")
+    for _ in range(delay):
+        await asyncio.sleep(1)

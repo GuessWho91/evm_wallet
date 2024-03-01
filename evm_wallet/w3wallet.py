@@ -29,7 +29,8 @@ class Wallet:
         balance = self.web3.eth.get_balance(self.address)
         human_readable = self.web3.from_wei(balance, 'ether')
 
-        return {"balance_wei": balance, "balance": human_readable, "symbol": "WETH", "decimal": 18}
+        return {"balance_wei": balance, "balance": human_readable, "symbol":
+            self.chain.get_main_coin().__class__.__name__, "decimal": 18}
 
     def get_token_balance(self, token):
 
@@ -84,7 +85,7 @@ class Wallet:
             'nonce': self.web3.eth.get_transaction_count(self.address),
         }
 
-    def make_tx_by_data(self, data, contract_address, tag, amount=0):
+    async def make_tx_by_data(self, data, contract_address, tag, amount=0):
         amount_wei = self.web3.to_wei(amount, 'ether')
         tx_data = self.get_trans_options(amount_wei)
         tx_data.update({"data": data,
@@ -94,17 +95,19 @@ class Wallet:
         tx_data.update({"gas": gas})
 
         try:
-            tx_hex = self.sigh_transaction(tx_data)
+            tx_hex = await self.sigh_transaction(tx_data)
         except ValueError as e:
             tx_data.update({"nonce": tx_data.get("nonce") + 1})
-            tx_hex = self.sigh_transaction(tx_data)
+            tx_hex = await self.sigh_transaction(tx_data)
 
         self.logger.success(
             f"[{tag}] [{self.address}] Транзакция отправлена {self.chain.get_scan_url()}{tx_hex}")
 
+        await self.wait_until_tx_finished(tx_hex)
+
         return tx_hex
 
-    def sigh_transaction(self, txn):
+    async def sigh_transaction(self, txn):
 
         try:
             gas = int(self.web3.eth.estimate_gas(txn) * self.GAS_MULTIPLIER)  # 250000
@@ -115,6 +118,8 @@ class Wallet:
         signed_txn = self.web3.eth.account.sign_transaction(txn, private_key=self.private_key)
         tx_token = self.web3.eth.send_raw_transaction(signed_txn.rawTransaction)
         tx_hex = self.web3.to_hex(tx_token)
+
+        await self.wait_until_tx_finished(tx_hex)
 
         return tx_hex
 
@@ -129,22 +134,22 @@ class Wallet:
         contract = self.web3.eth.contract(address=self.web3.to_checksum_address(contract_address), abi=abi)
         return contract.functions.balanceOf(address).call()
 
-    async def wait_until_tx_finished(self, hash_str, max_wait_time=180) -> None:
+    async def wait_until_tx_finished(self, hash_str, max_wait_time=60) -> None:
         start_time = time.time()
         while True:
             try:
-                receipts = await self.web3.eth.get_transaction_receipt(hash_str)
+                receipts =  self.web3.eth.get_transaction_receipt(hash_str)
                 status = receipts.get("status")
                 if status == 1:
-                    self.logger.success(f"[Wallet][{self.address}] {hash} successfully!")
+                    self.logger.success(f"[Wallet] [{self.address}] Transaction succeed {hash_str} ")
                     return
                 elif status is None:
                     await asyncio.sleep(0.3)
                 else:
-                    self.logger.error(f"[Wallet][{self.address}] {hash} transaction failed!")
+                    self.logger.error(f"[Wallet] [{self.address}] Transaction failed {hash_str}")
                     return
             except TransactionNotFound:
                 if time.time() - start_time > max_wait_time:
-                    self.logger.error(f'[Wallet][{self.address}] failed tx: {hash}')
+                    self.logger.error(f'[Wallet][{self.address}] Transaction failed {hash_str}')
                     return
                 await asyncio.sleep(1)
