@@ -22,7 +22,7 @@ class Coin:
         self.chain = chain
 
         script_location = Path(__file__).absolute().parent
-        info = open(f'{script_location}/../data/coins_info.json')
+        info = open(f'{script_location}/data/coins_info.json')
         coins_data = json.load(info)
         self.coin_data = coins_data[self.__class__.__name__]
         if self.coin_data is None:
