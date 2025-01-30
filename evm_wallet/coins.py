@@ -80,7 +80,7 @@ class Coin:
         )
         raw_transaction = wallet.web3.eth.send_raw_transaction(signed_txn.rawTransaction)
 
-        wallet.web3.eth.wait_for_transaction_receipt(raw_transaction, timeout=6)
+        wallet.web3.eth.wait_for_transaction_receipt(raw_transaction, timeout=15)
 
         sleep(1, 3)
 

@@ -94,5 +94,29 @@
     "explorer": "https://testnet.beratrail.io/tx/",
     "api": "https://api.testnet.beratrail.io/",
     "token": "BERA"
+  },
+  "base_test": {
+    "rpc": [
+      "https://base-sepolia.gateway.tenderly.co"
+    ],
+    "explorer": "https://sepolia.basescan.org/tx/",
+    "api": "https://api.sepolia.basescan.org/",
+    "token": "ETH"
+  },
+  "optimism_test": {
+    "rpc": [
+      "https://sepolia.optimism.io"
+    ],
+    "explorer": "https://optimism-sepolia.blockscout.com/tx/",
+    "api": "https://api.optimism-sepolia.blockscout.com/",
+    "token": "ETH"
+  },
+  "arbitrum_test": {
+    "rpc": [
+      "https://sepolia-rollup.arbitrum.io/rpc/"
+    ],
+    "explorer": "https://sepolia.arbiscan.io/tx/",
+    "api": "https://sepolia.arbiscan.io/",
+    "token": "ETH"
   }
 }

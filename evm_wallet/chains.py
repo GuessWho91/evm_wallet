@@ -16,7 +16,11 @@ class Chains(Enum):
     ARBITRUM = 42161
     AVALANCHE = 43114
     LINEA = 59144
+
     BERA_TEST = 80085
+    BASE_TEST = 84532
+    OPTIMISM_TEST = 11155420
+    ARBITRUM_TEST = 421614
 
     def __init__(self, name):
 

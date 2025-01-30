@@ -2,6 +2,7 @@ import os
 import time
 from datetime import date
 from pathlib import Path
+import openpyxl
 
 
 class W3Logger:
@@ -24,10 +25,13 @@ class W3Logger:
             with open(self.file_path, 'w', encoding='utf-8') as file:
                 file.write('')
 
-        self.file_path_results = f'{folder_path_results}/{today}.txt'
+        self.file_path_results = f'{folder_path_results}/result.xlsx'
         if not os.path.exists(self.file_path_results):
-            with open(self.file_path_results, 'w', encoding='utf-8') as file:
-                file.write('')
+            wb = openpyxl.Workbook()
+            wb.active.cell(row=1, column=1).value = "wallets"
+            wb.save(self.file_path_results)
+
+        self.wb_results = openpyxl.load_workbook(self.file_path_results)
 
     def success(self, msg):
         with open(self.file_path, 'a+', encoding='utf-8') as file:
@@ -57,11 +61,34 @@ class W3Logger:
         with open(self.file_path, 'a+', encoding='utf-8') as file:
             file.write('\n')
 
-    def result(self, msg, msg_type):
-        with open(self.file_path_results, 'a+', encoding='utf-8') as file:
-            msg = self.get_message(msg, msg_type)
-            file.write(msg)
-            print(msg)
+    def result(self, wallet_address, column_name, msg):
+
+        sheet = self.wb_results.active
+
+        columns = []
+        wallets = []
+
+        for column in sheet.iter_cols():  # Iterate through columns
+            column_value = column[0].value
+            columns.append(column_value)
+            if column_value == "wallets":
+                for cell in column:
+                    wallets.append(cell.value)
+
+        try:
+            row = wallets.index(wallet_address) + 1
+        except ValueError:
+            row = sheet.max_row + 1
+            sheet.cell(row=row, column=1).value = wallet_address
+
+        try:
+            col = columns.index(column_name) + 1
+        except ValueError:
+            col = sheet.max_column + 1
+            sheet.cell(row=1, column=col).value = column_name
+
+        sheet.cell(row=row, column=col).value = msg
+        self.wb_results.save(self.file_path_results)
 
     @staticmethod
     def get_message(msg, msg_type):
