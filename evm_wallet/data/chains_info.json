@@ -87,6 +87,14 @@
     "api": "https://api.ftmscan.com/",
     "token": "FTM"
   },
+  "soneium": {
+    "rpc": [
+      "https://1868.rpc.thirdweb.com"
+    ],
+    "explorer": "https://soneium.blockscout.com/tx/",
+    "api": "https://api.soneium.blockscout.com/",
+    "token": "ETH"
+  },
   "bera_test": {
     "rpc": [
       "https://artio.rpc.berachain.com"

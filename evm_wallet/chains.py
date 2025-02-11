@@ -16,6 +16,7 @@ class Chains(Enum):
     ARBITRUM = 42161
     AVALANCHE = 43114
     LINEA = 59144
+    SONEIUM = 1868
 
     BERA_TEST = 80085
     BASE_TEST = 84532

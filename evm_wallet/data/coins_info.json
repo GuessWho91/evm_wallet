@@ -19,7 +19,8 @@
     "zksync": "0x5aea5775959fbc2557cc8789bc1bf90a239d9a91",
     "avalanche": "",
     "linea": "",
-    "base": ""
+    "base": "",
+    "soneium": "0x4200000000000000000000000000000000000006"
   },
   "USDT": {
     "ethereum": "0xdac17f958d2ee523a2206206994597c13d831ec7",
@@ -42,7 +43,8 @@
     "avalanche": "",
     "linea": "",
     "bera_test": "0x6581e59A1C8dA66eD0D313a0d4029DcE2F746Cc5",
-    "base": ""
+    "base": "",
+    "soneium": "0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369"
   },
   "BNB": {
     "ethereum": "0x418D75f65a02b3D53B2418FB8E1fe493759c7605",
@@ -90,5 +92,8 @@
   },
   "BERA": {
     "bera_test": ""
+  },
+  "ASTR": {
+    "soneium": "0x2CAE934a1e84F693fbb78CA5ED3B0A6893259441"
   }
 }

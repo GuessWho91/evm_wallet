@@ -12,7 +12,6 @@ from evm_wallet.w3error import W3Error
 
 
 class Wallet:
-
     GAS_MULTIPLIER = 1.3
     DEADLINE = int(time.time()) + 10 * 60  # 10 min
 
@@ -88,8 +87,12 @@ class Wallet:
     async def make_tx_by_data(self, data, contract_address, tag, amount=0):
         amount_wei = self.web3.to_wei(amount, 'ether')
         tx_data = self.get_trans_options(amount_wei)
-        tx_data.update({"data": data,
-                        "to": contract_address})
+
+        if contract_address == "":
+            tx_data.update({"data": data})
+        else:
+            tx_data.update({"data": data,
+                            "to": contract_address})
 
         gas = int(self.web3.eth.estimate_gas(tx_data) * self.GAS_MULTIPLIER)
         tx_data.update({"gas": gas})
@@ -116,7 +119,7 @@ class Wallet:
             time.sleep(1)
 
         signed_txn = self.web3.eth.account.sign_transaction(txn, private_key=self.private_key)
-        tx_token = self.web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+        tx_token = self.web3.eth.send_raw_transaction(signed_txn.raw_transaction)
         tx_hex = self.web3.to_hex(tx_token)
 
         await self.wait_until_tx_finished(tx_hex)
@@ -138,7 +141,7 @@ class Wallet:
         start_time = time.time()
         while True:
             try:
-                receipts =  self.web3.eth.get_transaction_receipt(hash_str)
+                receipts = self.web3.eth.get_transaction_receipt(hash_str)
                 status = receipts.get("status")
                 if status == 1:
                     self.logger.success(f"[Wallet] [{self.address}] Transaction succeed {hash_str} ")
